@@ -9,7 +9,12 @@ router.get('/', function(req, res){
 
 router.post('/', function(req, res){
     var data = req.body;
-    
+    list.push({
+        title: data.title,
+        director: data.director,
+        genre: data.genre
+    });
+    res.render('admin', {movies: list});
 });
 
 module.exports = router;

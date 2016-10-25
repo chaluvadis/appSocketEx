@@ -44,3 +44,8 @@ img.logo {
     font-weight: bold;
     text-decoration: underline;
 }
+
+.action_row{
+    display: flex;
+    flex-direction: row;
+}
