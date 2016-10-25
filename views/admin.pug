@@ -1,0 +1,72 @@
+extend layout
+block content
+    .movie-container
+        div(style="width: 100%;display: flex;flex-direction: row;margin-bottom:-25px;")
+            div(style="width:80%") 
+                h3 Movies Running now
+            div(style="width:20%;text-align: right;") 
+                h3(style="cursor:pointer; margin-right:10px;" class="addNew") +
+        div(class="movie" id="hidden" style="display:none;height:110px;")
+
+        for movie in movies
+            .movie
+                div(class="movie-content" style="width:75%")
+                    div
+                       strong= movie.title
+                    div 
+                        span 
+                            strong Director :
+                        span= movie.director 
+                    div 
+                        span 
+                            strong Genre :
+                        span= movie.genre
+                div(class="movie-content" style="width:25%;text-align: right;")
+                    img(src="http://localhost:1337/" + movie.logo class="logo")
+    
+    script.
+        $(document).ready(function(){
+            $('.addNew').click(function(e){
+                
+                var template = '<div style="padding:10px;">'+
+                                    '<div>'+    
+                                        'Title : <input name="title" type="text" placeholder="Enter movie title">'+
+                                    '</div>'+
+                                    '<div style="margin-top:5px;">'+
+                                        'Director : <input type="text" name="director" placeholder="Enter movie director">'+
+                                    '</div>'+
+                                    '<div style="margin-top:5px;">'+
+                                        'Genre : <input type="text" name="genre" placeholder="Enter movie Genre">'+
+                                    '</div>'+
+                                    '<div style="margin-top:5px;">'+
+                                        '<button id="btn-add" type="button">Add Title</button>'+
+                                    '</div>'+
+                               '</div>';
+                $('#hidden').css('display', 'block');
+                $('#hidden').append(template);
+                e.target.hidden = true;
+            });
+
+
+        });
+
+        $(document).on('click', '#btn-add', function(){
+            console.log("btn add");
+            var url = "http://localhost:1337/admin";                
+            var data = {
+                title:$('[name="title"]').val(),
+                director:$('[name="director"]').val(),
+                genre : $('[name="genre"]').val()
+            }
+            console.log(data);
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: data,
+                success: function(data){
+                    console.log(data);
+                },
+                dataType: 'jsonp'
+            });
+            $('h3.addNew').show();
+        });
