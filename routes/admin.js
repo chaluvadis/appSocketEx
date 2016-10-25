@@ -9,11 +9,8 @@ router.get('/', function(req, res){
 
 router.post('/', function(req, res){
     var data = req.body;
-    list.push({
-        title: data.title,
-        director: data.director,
-        genre: data.genre
-    });
+    fs.appendFileSync('list.json', data)
+    list.push(data);
     res.render('admin', {movies: list});
 });
 

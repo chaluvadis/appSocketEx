@@ -1,0 +1,15 @@
+for movie in movies
+            .movie
+                div(class="movie-content" style="width:75%")
+                    div
+                       strong= movie.title
+                    div 
+                        span 
+                            strong Director :
+                        span= movie.director 
+                    div 
+                        span 
+                            strong Genre :
+                        span= movie.genre
+                div(class="movie-content" style="width:25%;text-align: right;")
+                    img(src="http://localhost:1337/" + movie.logo class="logo")

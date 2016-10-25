@@ -8,21 +8,7 @@ block content
                 h3(style="cursor:pointer; margin-right:10px;" class="addNew") +
         div(class="movie" id="hidden" style="display:none;height:110px;")
 
-        for movie in movies
-            .movie
-                div(class="movie-content" style="width:75%")
-                    div
-                       strong= movie.title
-                    div 
-                        span 
-                            strong Director :
-                        span= movie.director 
-                    div 
-                        span 
-                            strong Genre :
-                        span= movie.genre
-                div(class="movie-content" style="width:25%;text-align: right;")
-                    img(src="http://localhost:1337/" + movie.logo class="logo")
+        include movies_list
     
     script.
         $(document).ready(function(){
@@ -54,7 +40,7 @@ block content
                                         '</div>' +
                                     '</div>'+
                                     '<div style="margin-top:5px;">'+
-                                        '<input type="file" accept="image/*">' +
+                                        '<input type="file" name="file" accept="image/*">' +
                                         '<button id="btn-add" type="button">Add Title</button>'+
                                     '</div>'+
                                '</div>';
@@ -74,11 +60,17 @@ block content
                 director:$('[name="director"]').val(),
                 genre : $('[name="genre"]').val()
             }
+
+            var formData = new FormData();
+            formData.append('title', $('[name="title"]').val());
+            formData.append('director', $('[name="director"]').val());
+            formData.append('genre', $('[name="genre"]').val());
+            formData.append('logo', $('[name="file"]')[0].files[0]);
             console.log(data);
             $.ajax({
                 type: "POST",
                 url: url,
-                data: data,
+                data: formData,
                 success: function(data){
                     console.log(data);
                 },
