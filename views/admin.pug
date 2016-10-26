@@ -55,29 +55,30 @@ block content
         $(document).on('click', '#btn-add', function(){
             console.log("btn add");
             var url = "http://localhost:1337/admin";                
-            var data = {
-                title:$('[name="title"]').val(),
-                director:$('[name="director"]').val(),
-                genre : $('[name="genre"]').val()
-            }
-
+            //- var formData = {
+            //-     title:$('[name="title"]').val(),
+            //-     director:$('[name="director"]').val(),
+            //-     genre : $('[name="genre"]').val()
+            //- }
+            var file = $('[name="file"]')[0].files[0];
             var formData = new FormData();
             formData.append('title', $('[name="title"]').val());
             formData.append('director', $('[name="director"]').val());
             formData.append('genre', $('[name="genre"]').val());
-            formData.append('logo', $('[name="file"]')[0].files[0]);
-            console.log(data);
+            formData.append('logo', file);
+
             $.ajax({
                 type: "POST",
                 url: url,
                 data: formData,
                 success: function(data){
-                    console.log(data);
+                    console.log('Success :', data);
+                    $('h3.addNew').show();
                 },
                 error: function(err) {
                     console.log(err);
                 },
-                dataType: 'jsonp'
+                processData: false,
+                contentType: false
             });
-            $('h3.addNew').show();
         });

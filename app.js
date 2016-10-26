@@ -4,6 +4,7 @@ var path = require('path');
 var bodyParser = require('body-parser');
 
 var app = express();
+
 app.set('PORT', process.env.port || 1337);
 
 var server = http.createServer(app);
@@ -23,7 +24,6 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 app.use('/', index);
 app.use('/admin', admin);
-
 
 app.listen(app.get('PORT'), function(){
     console.log('Server is running at ' + app.get('PORT'));
