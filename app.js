@@ -7,7 +7,11 @@ var app = express();
 
 app.set('PORT', process.env.port || 1337);
 
-var server = http.createServer(app);
+//var server = http.createServer(app);
+
+var server = app.listen(app.get('PORT'), function(){
+    console.log('Server is running at ' + app.get('PORT'));
+});
 
 var io = require('socket.io').listen(server);
 
@@ -25,6 +29,10 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use('/', index);
 app.use('/admin', admin);
 
-app.listen(app.get('PORT'), function(){
-    console.log('Server is running at ' + app.get('PORT'));
+//emit some events to the client
+io.on('connection', function(socket){
+    socket.emit('news', {hello: 'world'});
+    socket.on('event from client', function(data){
+        console.log('from client :', data);
+    })
 });

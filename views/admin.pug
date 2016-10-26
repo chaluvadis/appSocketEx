@@ -55,11 +55,6 @@ block content
         $(document).on('click', '#btn-add', function(){
             console.log("btn add");
             var url = "http://localhost:1337/admin";                
-            //- var formData = {
-            //-     title:$('[name="title"]').val(),
-            //-     director:$('[name="director"]').val(),
-            //-     genre : $('[name="genre"]').val()
-            //- }
             var file = $('[name="file"]')[0].files[0];
             var formData = new FormData();
             formData.append('title', $('[name="title"]').val());
@@ -74,6 +69,8 @@ block content
                 success: function(data){
                     console.log('Success :', data);
                     $('h3.addNew').show();
+                    //after save hide the block
+                    $('#hidden').css('display', 'none');
                 },
                 error: function(err) {
                     console.log(err);
@@ -82,3 +79,9 @@ block content
                 contentType: false
             });
         });
+
+        var socket = io.connect('http://localhost:1337');
+        socket.on('news', function(data){
+            console.log(data);
+            socket.emit('event from client', {my : 'data'});
+        })
