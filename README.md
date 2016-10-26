@@ -25,5 +25,8 @@ This application contains two modules
 Post a comment for your querries.
 
 
+
+    1) Admin Screen and User screen is created     
 #TODO
-Admin module and user module need to implement    
+
+    Socket IO need to add to the application to live updates
