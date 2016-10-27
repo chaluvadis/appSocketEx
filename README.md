@@ -1,32 +1,22 @@
 # Documentation
 
-This is a simple application demonstrates the use socket io.
+Application contains two screens, one for Admin and one for normal user.
 
-This application contains two modules
+When admin adds any new movie, with help of socket io user will see the updated list with out any reload.
 
-**1) User Module**
+# Steps to run the Application
 
-    User can see all the new movies list added by administrator 
+    1) npm install 
+
+        This command will install all dependencies
+    
+    2) node app.js
+
+        This command runs the application at http://localhost:1337/
     
 
-**2) Admin Module**
+#Todo:
 
-    Adminstrator adds new movies to the list.
+    Test cases need to implement for the application
 
---------
-
-# Steps to run the application
-
-1) npm install - to install all the dependencies
-
-2) node app.js - application runs on port 1337
-
-
-Post a comment for your querries.
-
-
-
-    1) Admin Screen and User screen is created     
-#TODO
-
-    Socket IO need to add to the application to live updates
+Post your feedback on comment section.
