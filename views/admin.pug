@@ -1,6 +1,6 @@
 extend layout
 block content
-    .movie-container
+    div(style="min-width: 450px;width: 450px;margin: 0 auto;")
         div(style="width: 100%;display: flex;flex-direction: row;margin-bottom:-25px;")
             div(style="width:80%") 
                 h3 Movies Running now
@@ -8,6 +8,7 @@ block content
                 h3(style="cursor:pointer; margin-right:10px;" class="addNew") +
         div(class="movie" id="hidden" style="display:none;height:110px;")
 
+    div(class="movie-container" id="movie-container")
         include movies_list
     
     script.
@@ -70,6 +71,7 @@ block content
                     console.log('Success :', data);
                     $('h3.addNew').show();
                     //after save hide the block
+                    $('#hidden').empty();
                     $('#hidden').css('display', 'none');
                 },
                 error: function(err) {
@@ -81,7 +83,31 @@ block content
         });
 
         var socket = io.connect('http://localhost:1337');
-        socket.on('news', function(data){
+        socket.on('movie', function(data){
+            $('#movie-container').prepend(dataTemplate(data));
             console.log(data);
-            socket.emit('event from client', {my : 'data'});
-        })
+            socket.emit('movie updated', {my : 'data'});
+        });
+
+        function dataTemplate(data) {
+            var template = '<div class="movie">' + 
+                                '<div class="movie-content" style="width:75%">'+
+                                '<div>'+
+                                    '<strong>' + data.title +'</strong>' +
+                                '</div>' + 
+                                '<div>' +  
+                                    '<span> <strong>Director :</strong></span>' +
+                                    '<span>' + data.director +'</span>' +
+                                '</div>' + 
+                                '<div>'+ 
+                                    '<span> <strong>Genre :</strong></span>' +
+                                    '<span>'+ data.genre +'</span>' +
+                                '</div>'+
+                            '</div>'+
+                            '<div class="movie-content" style="width:25%;text-align: right">'+
+                                '<img class="logo" src="' +data.logo +'">'+
+                            '</div>'+
+                        '</div>'
+                        console.log(template);
+            return template;
+        }
