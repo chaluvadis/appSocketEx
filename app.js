@@ -4,7 +4,7 @@ var bodyParser = require('body-parser');
 
 var app = express();
 
-app.set('PORT', process.env.port || 1337);
+app.set('PORT', process.env.PORT || 1337);
 
 
 var server = app.listen(app.get('PORT'), () => {
