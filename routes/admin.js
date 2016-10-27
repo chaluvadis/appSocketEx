@@ -17,7 +17,6 @@ var storage = multer.diskStorage({
 });
 
 router.get('/', function (req, res) {
-    var list = list.filterBy()
     res.render('admin', { movies: list });
 });
 
