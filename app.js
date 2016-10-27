@@ -7,7 +7,7 @@ var app = express();
 app.set('PORT', process.env.port || 1337);
 
 
-var server = app.listen(app.get('PORT'), function(){
+var server = app.listen(app.get('PORT'), () => {
     console.log('Server is running at ' + app.get('PORT'));
 });
 
